@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @subscription_fu_log.user_id %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%=h @subscription_fu_log.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_subscription_fu_log_path(@subscription_fu_log) %> |
+<%= link_to 'Back', subscription_fu_logs_path %>

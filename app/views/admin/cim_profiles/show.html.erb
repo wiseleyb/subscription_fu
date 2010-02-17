@@ -1,0 +1,43 @@
+<p>
+  <b>User:</b>
+  <%=h @cim_profile.user_id %>
+</p>
+
+<p>
+  <b>Transaction key:</b>
+  <%=h @cim_profile.transaction_key %>
+</p>
+
+<p>
+  <b>Last four:</b>
+  <%=h @cim_profile.last_four %>
+</p>
+
+<p>
+  <b>Failed payment attempts:</b>
+  <%=h @cim_profile.failed_payment_attempts %>
+</p>
+
+<p>
+  <b>First name:</b>
+  <%=h @cim_profile.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%=h @cim_profile.last_name %>
+</p>
+
+<p>
+  <b>Expiration month:</b>
+  <%=h @cim_profile.expiration_month %>
+</p>
+
+<p>
+  <b>Expiration year:</b>
+  <%=h @cim_profile.expiration_year %>
+</p>
+
+
+<%= link_to 'Edit', edit_cim_profile_path(@cim_profile) %> |
+<%= link_to 'Back', cim_profiles_path %>

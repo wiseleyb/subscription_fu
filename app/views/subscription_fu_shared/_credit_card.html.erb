@@ -1,0 +1,36 @@
+<p>
+  <label for="order_first_name">First Name *</label>
+  <%= text_field :order, :first_name %>
+</p>
+
+<p>
+  <label for="order_last_name">Last Name *</label>
+  <%= text_field :order, :last_name %>
+</p>
+
+<p>
+  <label for="order_card_number">Card Number *</label>
+  <% if ENV['RAILS_ENV'] != 'production' %>
+    <%= text_field :order, :number, :maxlength => 19 %>
+  <% else %>
+    <%= text_field :order, :number, :maxlength => 19, :autocomplete => :off %>
+  <% end %>
+</p>
+
+<p>
+  <label for="order_month">Expiration Date *</label><br />
+  <select id="order_month" name="order[month]">
+    <%= options_for_select(%w(1 2 3 4 5 6 7 8 9 10 11 12), (@order.month || Date.today.month + 1).to_s) %>
+  </select>
+  /
+  <select id="order_year" name="order[year]">
+    <%
+    year = Date.today.year - 1
+    years = []
+    12.times do |i|
+     years << year += 1
+    end
+    %>
+    <%= options_for_select(years, @order.year.to_i) %>
+  </select>
+</p>

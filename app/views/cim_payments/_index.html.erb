@@ -1,0 +1,28 @@
+<%
+# You can pass in a collection of cim_payments, a cim_profile_id, or it'll default to user_id
+cim_payments ||= nil
+unless cim_payments
+	cim_payment_id ||= nil
+	if cim_payment_id
+		cim_payments = CimPayment.find(:all, :conditions => {:cim_profile_id => cim_profile_id}, :order => "created_at desc")
+	else
+		cim_payments = CimPayment.find(:all, :conditions => {:user_id => user_id}, :order => "created_at desc")
+	end
+end
+%>
+<table>
+	<tr>
+		<th>Product</th>
+		<th>Amount</th>
+		<th>Transaction Key</th>
+		<th>Payment Date</th>
+	</tr>
+	<% cim_payments.each do |cpp| %>
+		<tr>
+			<td><%=cpp.product_name%></td>
+			<td><%=number_to_currency(cpp.amount)%></td>
+			<td><%=cpp.transaction_key%></td>
+			<td><%=cpp.created_at.strftime("%Y-%m-%d")%></td>
+		</tr>
+	<% end %>
+</table>

@@ -1,0 +1,22 @@
+<h1>Listing subscription_fu_logs</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Note</th>
+  </tr>
+
+<% @subscription_fu_logs.each do |subscription_fu_log| %>
+  <tr>
+    <td><%=h subscription_fu_log.user_id %></td>
+    <td><%=h subscription_fu_log.note %></td>
+    <td><%= link_to 'Show', subscription_fu_log %></td>
+    <td><%= link_to 'Edit', edit_subscription_fu_log_path(subscription_fu_log) %></td>
+    <td><%= link_to 'Destroy', subscription_fu_log, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New subscription_fu_log', new_subscription_fu_log_path %>

@@ -1,0 +1,20 @@
+<p>
+  <b>User:</b>
+  <%=link_to @subscription.user.login, "/users/#{@subscription.user.id}" %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%=h @subscription.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%=h @subscription.end_date %>
+</p>
+
+<p>
+  <b>Product:</b>
+  <%=h @subscription.product.name %>
+</p>
+

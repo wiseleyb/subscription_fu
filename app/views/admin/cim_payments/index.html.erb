@@ -1,0 +1,28 @@
+<h1>Listing cim_payments</h1>
+
+<table>
+  <tr>
+    <th>Cim profile</th>
+    <th>Product</th>
+    <th>Transaction key</th>
+    <th>Payment date</th>
+    <th>Amount</th>
+  </tr>
+
+<% @cim_payments.each do |cim_payment| %>
+  <tr>
+    <td><%=h cim_payment.cim_profile_id %></td>
+    <td><%=h cim_payment.product_id %></td>
+    <td><%=h cim_payment.transaction_key %></td>
+    <td><%=h cim_payment.payment_date %></td>
+    <td><%=h cim_payment.amount %></td>
+    <td><%= link_to 'Show', cim_payment %></td>
+    <td><%= link_to 'Edit', edit_cim_payment_path(cim_payment) %></td>
+    <td><%= link_to 'Destroy', cim_payment, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New cim_payment', new_cim_payment_path %>

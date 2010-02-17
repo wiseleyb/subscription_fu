@@ -1,0 +1,34 @@
+<h1>Listing cim_profiles</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Transaction key</th>
+    <th>Last four</th>
+    <th>Failed payment attempts</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Expiration month</th>
+    <th>Expiration year</th>
+  </tr>
+
+<% @cim_profiles.each do |cim_profile| %>
+  <tr>
+    <td><%=h cim_profile.user_id %></td>
+    <td><%=h cim_profile.transaction_key %></td>
+    <td><%=h cim_profile.last_four %></td>
+    <td><%=h cim_profile.failed_payment_attempts %></td>
+    <td><%=h cim_profile.first_name %></td>
+    <td><%=h cim_profile.last_name %></td>
+    <td><%=h cim_profile.expiration_month %></td>
+    <td><%=h cim_profile.expiration_year %></td>
+    <td><%= link_to 'Show', cim_profile %></td>
+    <td><%= link_to 'Edit', edit_cim_profile_path(cim_profile) %></td>
+    <td><%= link_to 'Destroy', cim_profile, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New cim_profile', new_cim_profile_path %>

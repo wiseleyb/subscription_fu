@@ -1,0 +1,44 @@
+<h1>Editing cim_profile</h1>
+
+<% form_for(@cim_profile) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :transaction_key %><br />
+    <%= f.text_field :transaction_key %>
+  </p>
+  <p>
+    <%= f.label :last_four %><br />
+    <%= f.text_field :last_four %>
+  </p>
+  <p>
+    <%= f.label :failed_payment_attempts %><br />
+    <%= f.text_field :failed_payment_attempts %>
+  </p>
+  <p>
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </p>
+  <p>
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </p>
+  <p>
+    <%= f.label :expiration_month %><br />
+    <%= f.text_field :expiration_month %>
+  </p>
+  <p>
+    <%= f.label :expiration_year %><br />
+    <%= f.text_field :expiration_year %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @cim_profile %> |
+<%= link_to 'Back', cim_profiles_path %>

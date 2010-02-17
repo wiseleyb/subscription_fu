@@ -1,0 +1,26 @@
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Transaction ID</th>
+		<th>Last 4</th>
+		<th>Failed Payment Attempts</th>
+		<th>Payment Profile ID</th>
+	</tr>
+	<% CimProfile.find(:all, :conditions => {:user_id => user_id}).each do |cp| %>
+		<tr>
+			<td><%="#{cp.first_name} #{cp.last_name}"%>
+			<td><%=cp.transaction_key%></td>
+			<td><%=cp.last_four%></td>
+			<td><%=cp.failed_payment_attempts%></td>
+			<td><%=cp.payment_profile_id%></td>
+		</tr>
+		<% if cp.cim_payments %>
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="4">
+					<%=render :partial => "/cim_payments/index", :locals => {:cim_payments => cp.cim_payments}%>
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>

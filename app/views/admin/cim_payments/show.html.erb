@@ -1,0 +1,28 @@
+<p>
+  <b>Cim profile:</b>
+  <%=h @cim_payment.cim_profile_id %>
+</p>
+
+<p>
+  <b>Product:</b>
+  <%=h @cim_payment.product_id %>
+</p>
+
+<p>
+  <b>Transaction key:</b>
+  <%=h @cim_payment.transaction_key %>
+</p>
+
+<p>
+  <b>Payment date:</b>
+  <%=h @cim_payment.payment_date %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%=h @cim_payment.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_cim_payment_path(@cim_payment) %> |
+<%= link_to 'Back', cim_payments_path %>
