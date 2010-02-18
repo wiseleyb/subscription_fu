@@ -1,0 +1,7 @@
+<table>
+	<% SubscriptionFuLog.find(:all, :conditions => {:user_id => user_id}).each do |s| %>
+		<tr>
+			<td><%=s.note%></td>
+		</tr>
+	<% end %>
+</table>

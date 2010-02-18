@@ -8,15 +8,6 @@ class Order  < ActiveRecord::Base
   belongs_to :product
   
   before_save :dont_save
-
-  # TODO - this should look for an existing subscription and add on to it's end date; assuming that 
-  # all products are just varying lengths... if you can subscribe to different different products
-  # at the same time then this gets more complicated.  Needs work.
-  def new_subscription
-    Subscription.new(:user_id => self.user_id, :start_date => Date.today, 
-                :end_date => Date.today + self.product.duration.months, 
-                :product_id => self.product_id)
-  end
   
   def credit_card
     cc = ActiveMerchant::Billing::CreditCard.new

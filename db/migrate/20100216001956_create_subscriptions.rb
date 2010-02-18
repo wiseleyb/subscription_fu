@@ -4,7 +4,9 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.integer :user_id
       t.datetime :start_date
       t.datetime :end_date
+      t.integer :product_category_id
       t.integer :product_id
+      t.boolean :recurring, :default => true
       t.boolean :active, :default => false
       t.timestamps
     end

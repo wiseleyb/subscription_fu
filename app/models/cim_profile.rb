@@ -5,6 +5,9 @@ class CimProfile < ActiveRecord::Base
   belongs_to :user
   has_many :cim_payments
   
+  # TODO needs to be moved to a config area
+  FAILURE_ATTEMPTS = 3  #this is how many times the system will retry billing before abandoning this cim profile
+  
   def gateway
     CimProfile.gateway
   end
@@ -70,7 +73,9 @@ class CimProfile < ActiveRecord::Base
 
 
   # expects amount in BigDecimal which represents dollar amount.
-  def auth_capture(amount, product_id = nil)
+  def auth_capture(product, subscription)
+    amount = product.price
+    product_id = product.id
     amount = BigDecimal.new(amount.to_s) unless amount.is_a? BigDecimal
     amount = Money.new amount * 100
 
@@ -82,29 +87,29 @@ class CimProfile < ActiveRecord::Base
       self.save
       # TODO make failed payment attempts configurable
       if self.failed_payment_attempts >= 3
-        self.user.subscription.active = false
-        self.user.subscription.save
+        subscription.active = false
+        subscription.save
         # TODO - there should be some kind of notification going on here
         SubscriptionFuLog.create!(:user_id => self.user.id, 
-              :note => "Canceled subscription for #{self.user.login} for sub-id #{self.user.subscription.id} with an end date #{self.user.subscription.end.to_s(:db)}")
+              :note => "Canceled subscription for #{self.user.login} for sub-id #{subscription.id} with an end date #{subscription.end_date.to_s(:db)}")
       else
         SubscriptionFuLog.create!(:user_id => self.user.id, 
-              :note => "Failed capturing funds.  authorize.net CIM response: #{rmsg}.  Attempt ##{self.failed_payment_attempts}")
+              :note => "Failed capturing funds.  authorize.net CIM response: #{response.message}.  Attempt ##{self.failed_payment_attempts}")
       end
       self.save
-      subject = "Failure capturing funds.  #{rmsg}"
+      subject = "Failure capturing funds.  #{response.message}"
       raise StandardError, subject
     end
     self.failed_payment_attempts = 0
     self.save
     cim_payment = CimPayment.create!(
-      :user_id => self.user.id,
+      :user_id => self.user_id,
       :amount => amount.cents / 100.0,
       :cim_profile => self,
       :product_id => product_id,
       :transaction_key => response.params['direct_response']['transaction_id']
     )
-    SubscriptionFuLog.create!(:user_id => self.user.id, 
+    SubscriptionFuLog.create!(:user_id => self.user_id, 
           :note => "Billed user #{cim_payment.amount}")
     return cim_payment
   end

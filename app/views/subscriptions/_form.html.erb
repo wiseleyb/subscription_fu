@@ -3,13 +3,15 @@
 	<legend>Purchase Subscription</legend>
 
 	<% form_for :order, :url => {:controller => :subscriptions, :action => :create} do |f| %>
+	
 		<%=f.error_messages%>
 		<%=f.hidden_field :user_id %>
 	
-		<%=f.select :product_id, Product.all.collect {|p| ["#{p.name} - #{number_to_currency(p.price)}", p.id]}%>
+		<%=f.select :product_id, Product.all.collect {|p| ["#{p.product_category.name}:#{p.name} - #{number_to_currency(p.price)}", p.id]}%>
 		<%=render :partial => "/subscription_fu_shared/credit_card" %>
 	
 		<%=submit_tag "Subscribe" %>
 	
 	<% end %>
+	
 </fieldset>

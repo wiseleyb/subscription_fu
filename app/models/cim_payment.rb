@@ -6,7 +6,13 @@ class CimPayment < ActiveRecord::Base
   
   
   def product_name
-    product.nil? ? "" : product.name
+    res = ""
+    if product
+      res << product.product_category.name
+      res << ":" 
+      res << product.name
+    end
+    return res
   end
   
 end

@@ -4,14 +4,16 @@
 		<th>Product</th>
 		<th>Start</th>
 		<th>End</th>
+		<th>Active</th>
 	</tr>
 	<% #do a lookup instead of @user.subscriptions - allows us to not depend on the user model %>
 	<% Subscription.find(:all, :conditions => {:user_id => user_id}).each do |s| %>
 		<tr>
 			<td><%=s.id%></td>
-			<td><%=s.product.name%></td>
+			<td><%=s.product.product_category.name%> : <%=s.product.name%></td>
 			<td><%=s.start_date.strftime("%Y-%m-%d") %></td>
 			<td><%=s.end_date.strftime("%Y-%m-%d") %></td>
+			<th><%=s.active%></td>
 		</tr>
 	<% end %>
 </table>
